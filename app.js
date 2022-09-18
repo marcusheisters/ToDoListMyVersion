@@ -9,13 +9,11 @@ app.set("view engine", "ejs");
 
 // Init Itemlist
 var items = ["Cook", "Eat", "Play"];
-// Add and format curent date 
-var today = new Date();
-var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-var currentDate = today.toLocaleDateString("en-US", options);
 
+var currentDate = getCurrentDate();
 app.get("/", (req, res) => {
-
+    // Renew date 
+    currentDate = getCurrentDate();
     // Render the new list
     res.render("list", {
         currentDate, items
@@ -36,3 +34,10 @@ app.post("/", (req, res) => {
 app.listen(port, () => {
     console.log("App listens to port " + port);
 })
+
+function getCurrentDate() {
+    var today = new Date();
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var currentDate = today.toLocaleDateString("en-US", options);
+    return currentDate;
+}
