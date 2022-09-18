@@ -6,12 +6,12 @@
   <title>To Do List</title>
   <h1><%=currentDate%> </h1>
   <ul>
-    <li>Cook</li>
-    <li>Eat</li>
-    <li>play</li>
+    <% for( let i = 0; i < items.length; i++ ) { %>
+   <li><%= items[i] %> </li> 
+    <% } %>
   </ul>
-  <form>
-    <input name="listItem" type="input" placeholder="Item">
+  <form action="/" method="post">
+    <input name="listItem" type="text" placeholder="Item">
     <button type="submit">Add Item</button>
   </form>
 </head>
