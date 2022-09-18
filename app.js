@@ -5,11 +5,13 @@ const ejs = require('ejs');
 
 app.set("view engine", "ejs");
 
-// Add and format curent date 
-var today = new Date();
-var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-var currentDate = today.toLocaleDateString("en-US", options);
 app.get("/", (req, res) => {
+        // Add and format curent date 
+        var today = new Date();
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        var currentDate = today.toLocaleDateString("en-US", options);
+        
+        // Render the new list
     res.render("list", {
         currentDate
     })
