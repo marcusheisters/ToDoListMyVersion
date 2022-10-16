@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<link rel="stylesheet" href="css/styles.css">
 
 <head>
   <meta charset="utf-8">
   <title>To Do List</title>
-  <h1><%=currentDate%> </h1>
-  <ul>
+
+  <div class="box" id="heading">
+    <h1><%=currentDate%> </h1>
+  </div>
+
+  <div class="box">
     <% for( let i = 0; i < items.length; i++ ) { %>
-   <li><%= items[i] %> </li> 
+    <div class="item">
+      <input type="checkbox">
+      <p><%= items[i] %> </p>
+    </div>
     <% } %>
-  </ul>
-  <form action="/" method="post">
-    <input name="listItem" type="text" placeholder="Item">
-    <button type="submit">Add Item</button>
-  </form>
+
+    <form class="item" action="/" method="post">
+      <input name="listItem" type="text" placeholder="New Item" autocomplete="off">
+      <button type="submit">+</button>
+    </form>
+  </div>
 </head>
 
 <body>

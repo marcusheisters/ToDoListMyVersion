@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
@@ -13,21 +14,19 @@ var currentDate = getCurrentDate();
 
 // Render the first page view 
 app.get("/", (_req, res) => {
-        currentDate = getCurrentDate();
-        // Render the list
-        res.render("list", {
-            currentDate, items
-        });
+    currentDate = getCurrentDate();
+    // Render the list
+    res.render("list", {
+        currentDate, items
     });
+});
 
 // Add item to list and rerender updated list
 app.post("/", (req, res) => {
-    // Add item to existing list
     items.push(req.body.listItem);
-    
-        res.render("list", {
-            currentDate, items
-        })
+    res.render("list", {
+        currentDate, items
+    })
 })
 
 
