@@ -18,6 +18,7 @@ app.listen(port, () => {
 });
 processingHomeRoute();
 processingWorkRoute();
+processingAboutRoute();
 
 
 // defaukt route
@@ -54,6 +55,12 @@ function processingWorkRoute() {
     });
 }
 
+// /Work route
+function processingAboutRoute() {
+    app.get("/about", (req, res) => {
+        res.render("about");
+    });
+}
 function getCurrentDate() {
     var today = new Date();
     var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

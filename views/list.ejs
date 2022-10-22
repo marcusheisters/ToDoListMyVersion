@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<link rel="stylesheet" href="css/styles.css">
-
-<head>
-  <meta charset="utf-8">
-  <title>To Do List</title>
-
+<%- include("header")-%>
   <div class="box" id="heading">
     <h1><%=listTitle%> </h1>
   </div>
@@ -23,11 +16,5 @@
       <button type="submit" name="list" value=<%= listTitle %>>+</button>
     </form>
   </div>
-</head>
 
-<body>
-  Awesome ToDo - List Created by me in 2022.
-</body>
-
-
-</html>
+  <%- include("footer") -%>
