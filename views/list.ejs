@@ -7,7 +7,7 @@
   <title>To Do List</title>
 
   <div class="box" id="heading">
-    <h1><%=currentDate%> </h1>
+    <h1><%=listTitle%> </h1>
   </div>
 
   <div class="box">
@@ -20,12 +20,14 @@
 
     <form class="item" action="/" method="post">
       <input name="listItem" type="text" placeholder="New Item" autocomplete="off">
-      <button type="submit">+</button>
+      <button type="submit" name="list" value=<%= listTitle %>>+</button>
     </form>
   </div>
 </head>
 
 <body>
+  Awesome ToDo - List Created by me in 2022.
 </body>
+
 
 </html>
