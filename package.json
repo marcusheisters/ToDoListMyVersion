@@ -1,0 +1,19 @@
+{
+  "name": "todolistmyversion",
+  "version": "1.0.0",
+  "description": "This is a template readme file!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toolz555/ToDoListMyVersion.git"
+  },
+  "author": "Marcus Heisters",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toolz555/ToDoListMyVersion/issues"
+  },
+  "homepage": "https://github.com/toolz555/ToDoListMyVersion#readme"
+}
