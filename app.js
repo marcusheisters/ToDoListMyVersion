@@ -6,7 +6,7 @@ const port = 3000;
 
 const db = mongoose.connect('mongodb://localhost:27017/toDoListDB');
 
-const itemsSchema = {name: String};
+const itemsSchema = { name: String };
 const Item = mongoose.model("Item", itemsSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,20 +15,12 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 // Add some default items
-const item1 = new Item ({name: "Welcome to your ToDo List"});
-const item2 = new Item ({name: "Hit the '+' button to add new items"});
-const item3 = new Item ({name: "Use the checkbox to mark items"})
+const item1 = new Item({ name: "Welcome to your ToDo List" });
+const item2 = new Item({ name: "Hit the '+' button to add new items" });
+const item3 = new Item({ name: "Use the checkbox to mark items" })
 
 const defaultItems = [item1, item2, item3];
 
-// Item.insertMany(defaultItems, (err,  docs) => {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log(`Items inserted: ${docs}`);
-//     }
-// 
-// })
 
 
 
@@ -46,9 +38,20 @@ processAboutRoute();
 function processHomeRoute() {
     app.get("/", (_req, res) => {
 
-        Item.find({}, (err,docs) => {
-            console.log(docs);
-            res.render("list", { listTitle: "Today", items: docs });
+        Item.find({}, (err, items) => {
+
+            // init DB with items if its empty
+            if (items.length === 0) {
+                Item.insertMany(defaultItems, (err, docs) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(`Items inserted: ${docs}`);
+                    }
+
+                })
+            }
+            res.render("list", { listTitle: "Today", items: items });
         })
         // Render the list
     });
@@ -72,7 +75,7 @@ function processWorkRoute() {
     app.get("/work", (req, res) => {
         res.render("list", { listTitle: "Work", items: workItems });
     });
-        
+
     app.post("/work", (req, res) => {
         items.push(req.body.listItem);
         res.redirect("/work");
