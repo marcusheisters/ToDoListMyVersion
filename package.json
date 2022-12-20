@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/toolz555/ToDoListMyVersion/issues"
   },
-  "homepage": "https://github.com/toolz555/ToDoListMyVersion#readme"
+  "homepage": "https://github.com/toolz555/ToDoListMyVersion#readme",
+  "dependencies": {
+    "mongoose": "^6.7.5"
+  }
 }

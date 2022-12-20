@@ -1,31 +1,56 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 const bodyParser = require('body-parser');
-const date = require(__dirname + "/date.js");
+const mongoose = require("mongoose")
+const port = 3000;
+
+const db = mongoose.connect('mongodb://localhost:27017/toDoListDB');
+
+const itemsSchema = {name: String};
+const Item = mongoose.model("Item", itemsSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
-// Init Itemlist
-const items = ["Cook", "Eat", "Play"];
-const workItems = [];
+// Add some default items
+const item1 = new Item ({name: "Welcome to your ToDo List"});
+const item2 = new Item ({name: "Hit the '+' button to add new items"});
+const item3 = new Item ({name: "Use the checkbox to mark items"})
+
+const defaultItems = [item1, item2, item3];
+
+// Item.insertMany(defaultItems, (err,  docs) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log(`Items inserted: ${docs}`);
+//     }
+// 
+// })
+
+
+
+
 
 app.listen(port, () => {
     console.log("App listens to port " + port);
 });
 
-processingHomeRoute();
-processingWorkRoute();
-processingAboutRoute();
+processHomeRoute();
+processWorkRoute();
+processAboutRoute();
 
 // defaukt route
-function processingHomeRoute() {
+function processHomeRoute() {
     app.get("/", (_req, res) => {
+
+        Item.find({}, (err,docs) => {
+            console.log(docs);
+            res.render("list", { listTitle: "Today", items: docs });
+        })
         // Render the list
-        res.render("list", { listTitle: date.getDay(), items: items });
     });
 
     // Add item to list and rerender updated list
@@ -43,7 +68,7 @@ function processingHomeRoute() {
 }
 
 // /Work route
-function processingWorkRoute() {
+function processWorkRoute() {
     app.get("/work", (req, res) => {
         res.render("list", { listTitle: "Work", items: workItems });
     });
@@ -55,7 +80,7 @@ function processingWorkRoute() {
 }
 
 // /about route
-function processingAboutRoute() {
+function processAboutRoute() {
     app.get("/about", (req, res) => {
         res.render("about");
     });
