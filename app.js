@@ -22,10 +22,6 @@ const item3 = new Item({ name: "Use the checkbox to mark items" })
 const defaultItems = [item1, item2, item3];
 
 
-
-
-
-
 app.listen(port, () => {
     console.log("App listens to port " + port);
 });
@@ -48,8 +44,9 @@ function processHomeRoute() {
                     } else {
                         console.log(`Items inserted: ${docs}`);
                     }
-
                 })
+
+                res.redirect("/");
             }
             res.render("list", { listTitle: "Today", items: items });
         })
@@ -58,22 +55,29 @@ function processHomeRoute() {
 
     // Add item to list and rerender updated list
     app.post("/", (req, res) => {
-        const item = req.body.listItem;
+        const itemName = req.body.listItem;
+        const item = new Item({name: itemName});
+        item.save();
+        res.redirect("/");
+    });
 
-        if (req.body.list === "Work") {
-            workItems.push(item);
-            res.redirect("/work");
-        } else {
-            items.push(req.body.listItem);
-            res.redirect("/");
-        }
+    // Route for deleting items
+    app.post("/delete", (req, res) => {
+        const checkedItemId = req.body.checkbox;
+        
+
+        Item.findByIdAndRemove(checkedItemId, (err) => {
+            console.log("Item with id " + checkedItemId + " removed");
+        });
+        res.redirect("/");
     });
 }
 
 // /Work route
 function processWorkRoute() {
-    app.get("/work", (req, res) => {
-        res.render("list", { listTitle: "Work", items: workItems });
+    app.get("/lists/:list", (req, res) => {
+        console.log(req.params.list);
+        res.redirect("/");
     });
 
     app.post("/work", (req, res) => {
