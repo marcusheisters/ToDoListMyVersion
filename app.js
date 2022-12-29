@@ -65,9 +65,20 @@ function processHomeRoute() {
     // Add item to list and rerender updated list
     app.post("/", (req, res) => {
         const itemName = req.body.listItem;
+        const listName = req.body.list;
         const item = new Item({ name: itemName });
-        item.save();
-        res.redirect("/");
+
+        // Default route?
+        if (listName === "Today") {
+            item.save();
+            res.redirect("/");
+        } else {
+            List.findOne({name: listName}, (err, foundList) => {
+                foundList.items.push(item);
+                foundList.save();
+                res.redirect(`/${listName}`);
+            });
+        }
     });
 
     // Route for deleting items
@@ -96,7 +107,7 @@ function processCustomRoute() {
                     });
                     list.save();
                     res.redirect("/" + customListName);
-                    
+
                 }
                 // Use existing list from DB
                 else {
@@ -111,12 +122,6 @@ function processCustomRoute() {
 
     });
 
-    app.post("/:customListItem", (req, res) => {
-        const itemName = req.body.listItem;
-        const item = new Item({ name: itemName });
-        item.save();
-        res.redirect("/:customListItem");
-    });
 }
 
 // /about route
