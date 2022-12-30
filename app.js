@@ -114,11 +114,7 @@ function processCustomRoute() {
             if (!err) {
                 // Create new List if not existing
                 if (!foundList) {
-                    const list = new List({
-                        name: customListName,
-                        items: defaultItems
-                    });
-                    list.save();
+                    persistNewList();
                     res.redirect("/" + customListName);
 
                 }
@@ -130,11 +126,16 @@ function processCustomRoute() {
                     });
                 }
             }
+
+            function persistNewList() {
+                const list = new List({
+                    name: customListName,
+                    items: defaultItems
+                });
+                list.save();
+            }
         });
-
-
     });
-
 }
 
 // /about route
