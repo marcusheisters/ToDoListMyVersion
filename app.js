@@ -2,8 +2,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const _ = require("lodash");
 const port = 3000;
+
 
 // DB and mongoose
 const db = mongoose.connect('mongodb://localhost:27017/toDoListDB');
@@ -84,19 +86,30 @@ function processHomeRoute() {
     // Route for deleting items
     app.post("/delete", (req, res) => {
         const checkedItemId = req.body.checkbox;
+        const listName = req.body.listName
 
-
-        Item.findByIdAndRemove(checkedItemId, (err) => {
-            console.log("Item with id " + checkedItemId + " removed");
-        });
-        res.redirect("/");
+        if (listName === "Today") {
+            Item.findByIdAndRemove(checkedItemId, (err) => {
+                console.log("Item with id " + checkedItemId + " removed");
+            });
+            res.redirect("/");
+        } else {
+            // $pull is a maongoose operator
+            List.findOneAndUpdate({
+                name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, foundList) => {
+                if (!err) {
+                    res.redirect("/" + listName);
+                }
+            });
+        }
+        
     });
 }
 
 // /Work route
 function processCustomRoute() {
     app.get("/:customListItem", (req, res) => {
-        const customListName = req.params.customListItem;
+        const customListName = _.capitalize(req.params.customListItem);
         List.findOne({ name: customListName }, (err, foundList) => {
             if (!err) {
                 // Create new List if not existing
