@@ -6,9 +6,8 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const port = 3000;
 
-
 // DB and mongoose
-const db = mongoose.connect('mongodb://localhost:27017/toDoListDB');
+const db = mongoose.connect('mongodb+srv://marcus:8zOdWpWknI5IvXGo@cluster0.uw46fbj.mongodb.net/toDoListDB');
 
 // Schemas
 // Items
