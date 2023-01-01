@@ -1,1 +1,0 @@
-exports.DB_CONNECTION = process.env.DB_CONNECTION || '<DB_CONNECTION_STIRNG';
