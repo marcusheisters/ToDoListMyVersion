@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const port = 3000;
-const config = require('./config');
+const config = require("./config");
 
 // DB and mongoose
 const db = mongoose.connect(config.DB_CONNECTION +"/toDoListDB");
