@@ -5,10 +5,14 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const port = 3000;
-const config = require("./config");
+// Use for Local Deployment
+// const config = require("./config");
 
 // DB and mongoose
-const db = mongoose.connect(config.DB_CONNECTION +"/toDoListDB");
+// Use for local Deployment
+//const db = mongoose.connect(config.DB_CONNECTION +"/toDoListDB");
+// Use for render deployment
+const db = mongoose.connect(pocess.env.DB_CONNECTION + "/toDoListDB");
 
 // Schemas
 // Items
