@@ -12,7 +12,7 @@ const port = 3000;
 // Use for local Deployment
 //const db = mongoose.connect(config.DB_CONNECTION +"/toDoListDB");
 // Use for render deployment
-const db = mongoose.connect(pocess.env.DB_CONNECTION + "/toDoListDB");
+const db = mongoose.connect(process.env.DB_CONNECTION + "/toDoListDB");
 
 // Schemas
 // Items
