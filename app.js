@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const _ = require("lodash");
-const port = 3000;
+const port = process.env.PORT || 3001;;
 // Use for Local Deployment
 // const config = require("./config");
 
